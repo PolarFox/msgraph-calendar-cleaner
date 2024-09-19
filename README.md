@@ -9,6 +9,7 @@ This script uses Microsoft Graph API to authenticate and remove the calendar ent
 
 - Remove calendar entries from a specific time slot
 - Token caching for faster authentication on subsequent runs
+- .env file support for environment variables
 
 ## Prerequisites
 
