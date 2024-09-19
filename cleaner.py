@@ -31,7 +31,6 @@ class CalendarCleaner:
             'Authorization': f'Bearer {self.token}',
             'Content-Type': 'application/json'
         }
-        self.ssl_context = ssl.create_default_context()
 
     def load_cache(self):
         cache = msal.SerializableTokenCache()
@@ -77,7 +76,7 @@ class CalendarCleaner:
                 break
             try:
                 print(f"Fetching link: {next_link}")
-                response = requests.get(next_link, headers=self.headers, verify=self.ssl_context)
+                response = requests.get(next_link, headers=self.headers, verify=True)
                 response.raise_for_status()
                 data = response.json()
                 events.extend(data['value'])
@@ -94,7 +93,7 @@ class CalendarCleaner:
     async def delete_event(self, session, event_id, semaphore):
         delete_url = f'https://graph.microsoft.com/v1.0/me/events/{event_id}'
         async with semaphore:
-            async with session.delete(delete_url, headers=self.headers, ssl=self.ssl_context) as response:
+            async with session.delete(delete_url, headers=self.headers, ssl=True) as response:
                 if response.status == 204:
                     print(f"Deleted event {event_id}")
                 else:
