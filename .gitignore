@@ -2,3 +2,4 @@
 .vscode
 .devcontainer
 .env
+token_cache.bin
