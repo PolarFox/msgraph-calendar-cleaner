@@ -13,7 +13,7 @@ This script uses Microsoft Graph API to authenticate and remove the calendar ent
 
 ## Prerequisites
 
-- Python 3.11 or later
+- Python 3.8 or later
 - A Microsoft 365 account with a mailbox
 - A registered Azure AD application with the necessary permissions
 - The application ID and secret
