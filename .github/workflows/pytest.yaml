@@ -35,3 +35,7 @@ jobs:
           pytest
         env:
           CI: true
+      - name: Show test results in Github
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
