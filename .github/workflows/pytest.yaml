@@ -32,7 +32,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest
+          pytest --junitxml=test-results.xml
         env:
           CI: true
       - name: Show test results in Github
