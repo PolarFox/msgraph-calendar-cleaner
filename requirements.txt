@@ -14,7 +14,7 @@ pycparser==2.22
 PyJWT==2.9.0
 pytz==2024.2
 requests==2.32.3
-setuptools==69.0.3
+setuptools==70.0.0
 smmap==5.0.1
 urllib3==2.2.3
 wheel==0.44.0
