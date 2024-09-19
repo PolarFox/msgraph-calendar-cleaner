@@ -43,7 +43,8 @@ class CalendarCleaner:
             with open("token_cache.bin", "w") as f:
                 f.write(self.cache.serialize())
 
-    def clean_cache(self):
+    @staticmethod
+    def clean_cache():
         if os.path.exists("token_cache.bin"):
             os.remove("token_cache.bin")
 

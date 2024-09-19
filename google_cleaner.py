@@ -84,6 +84,11 @@ class GoogleCalendarCleaner:
             'Authorization': f'Bearer {self.creds.token}',
             'Content-Type': 'application/json'
         }
+    
+    @staticmethod
+    def clean_token_cache():
+        os.remove('token.json')
+        print("Token cache cleaned.")
 
 
 def parse_args():
@@ -91,12 +96,17 @@ def parse_args():
     parser.add_argument('--start', help='Start time in format YYYY-MM-DD HH:MM')
     parser.add_argument('--end', help='End time in format YYYY-MM-DD HH:MM')
     parser.add_argument('--calendar', required=False, help='Calendar name, default is primary calendar', default='primary')
+    parser.add_argument('--clean', action='store_true', help='Clean token cache')
     parser.add_argument('--timezone', required=False, default='Europe/Helsinki', help='Timezone, default is Europe/Helsinki')
     return parser.parse_args()
 
 
 def main():
     args = parse_args()
+
+    if args.clean:
+        GoogleCalendarCleaner.clean_token_cache()
+        sys.exit
 
     if not args.start or not args.end:
         print('--start and --end are required')
