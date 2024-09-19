@@ -44,3 +44,13 @@ Environment variables:
 * `TENANT_ID` - Azure AD tenant ID
 
 3. Follow the instructions on the screen to authenticate the user and remove the calendar entry.
+
+4. Clean up the token cache
+
+For security reasons, CLEAN UP THE TOKEN CACHE after you have finished using the script.
+
+To clean up the token cache, run the script with the `--clean` option
+
+```bash
+python cleaner.py --clean
+```

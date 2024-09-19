@@ -27,6 +27,11 @@ def save_cache(cache):
             f.write(cache.serialize())
 
 
+def clean_cache():
+    if os.path.exists("token_cache.bin"):
+        os.remove("token_cache.bin")
+
+
 async def delete_event(session, event_id, headers, semaphore):
     """
     Delete a calendar event using the Microsoft Graph API.
@@ -51,11 +56,21 @@ async def main():
     Main function to delete calendar events within a specified time range.
     """
     parser = argparse.ArgumentParser(description='Delete calendar events within a specified time range.')
-    parser.add_argument('--start', required=True, help='Start time in format YYYY-MM-DD HH:MM')
-    parser.add_argument('--end', required=True, help='End time in format YYYY-MM-DD HH:MM')
+    parser.add_argument('--start', help='Start time in format YYYY-MM-DD HH:MM')
+    parser.add_argument('--end', help='End time in format YYYY-MM-DD HH:MM')
     parser.add_argument('--timezone', required=False, default='Europe/Helsinki', help='Timezone, default is Europe/Helsinki')
+    parser.add_argument('--clean', action='store_true', help='Clean token cache')
 
     args = parser.parse_args()
+
+    if not args.clean and (not args.start or not args.end):
+        parser.error('--start and --end are required unless --clean is specified')
+
+    # Clean token cache
+    if args.clean:
+        clean_cache()
+        print("Token cache cleaned.")
+        sys.exit(0)
 
     # Set timezone
     try:
