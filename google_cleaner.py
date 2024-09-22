@@ -47,7 +47,7 @@ class GoogleCalendarCleaner:
     def fetch_events(self, start_time_iso, end_time_iso):
         service = self.build_service()
         events_result = service.events().list(calendarId=self.calendar_id, timeMin=start_time_iso,
-                                              timeMax=end_time_iso, maxResults=20000, singleEvents=True,
+                                              timeMax=end_time_iso, maxResults=2500, singleEvents=True,
                                               orderBy='startTime').execute()
         events = events_result.get('items', [])
         print(f"Found {len(events)} events to delete.")
@@ -71,7 +71,7 @@ class GoogleCalendarCleaner:
                     pass
                 else:
                     print(f"Could not delete event {event_id}: {response.status} {await response.text()}")
-                await asyncio.sleep(0.05)
+                await asyncio.sleep(0.01)
 
     async def delete_events(self, events):
         semaphore = asyncio.Semaphore(3)
